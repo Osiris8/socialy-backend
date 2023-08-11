@@ -5,6 +5,7 @@ const {
   editPost,
   likePost,
   dislikePost,
+  deletePost,
 } = require("../controllers/post.constroller");
 const router = express.Router();
 router.get("/", getPosts);
@@ -12,9 +13,7 @@ router.post("/", setPosts);
 
 router.put("/:id", editPost);
 
-router.delete("/:id", (req, res) => {
-  res.json({ message: "post supprimé" + req.params.id });
-});
+router.delete("/:id", deletePost);
 
 router.patch("/like-post/:id", likePost);
 
