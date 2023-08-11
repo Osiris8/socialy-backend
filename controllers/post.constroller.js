@@ -29,11 +29,12 @@ module.exports.editPost = async (req, res) => {
 
 module.exports.deletePost = async (req, res) => {
   const post = await PostModel.findById(req.params.id);
+
   if (!post) {
-    return res.status(404).json({ message: "post not found" });
+    res.status(400).json({ message: "Ce post n'existe pas" });
   }
-  const deletePost = await PostModel.findByIdAndDelete(post);
-  res.status(200).json(deletePost);
+  await post.deleteOne({ _id: post });
+  res.status(200).json("Message supprimé " + req.params.id);
 };
 
 module.exports.likePost = async (req, res) => {
